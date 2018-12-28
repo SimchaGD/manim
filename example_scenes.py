@@ -3,7 +3,7 @@
 from big_ol_pile_of_manim_imports import *
 
 # To watch one of these scenes, run the following:
-# python extract_scene.py file_name <SceneName> -p
+#python extract_scene.py file_name <SceneName> -p
 #
 # Use the flat -l for a faster rendering at a lower
 # quality, use -s to skip to the end and just show
@@ -36,17 +36,20 @@ class WarpSquare(Scene):
 
 class WriteStuff(Scene):
     def construct(self):
+        
         example_text = TextMobject(
             "This is a some text",
             tex_to_color_map={"text": YELLOW}
         )
+        
         example_tex = TexMobject(
             "\\sum_{k=1}^\\infty {1 \\over k^2} = {\\pi^2 \\over 6}",
         )
+        
         group = VGroup(example_text, example_tex)
         group.arrange_submobjects(DOWN)
         group.set_width(FRAME_WIDTH - 2 * LARGE_BUFF)
-
+        
         self.play(Write(example_text))
         self.play(Write(example_tex))
         self.wait()

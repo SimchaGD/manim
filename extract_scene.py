@@ -177,6 +177,7 @@ def handle_scene(scene, **config):
 
     if config["show_last_frame"]:
         scene.save_image(mode=config["saved_image_mode"])
+
     open_file = any([
         config["show_last_frame"],
         config["open_video_upon_completion"],
@@ -197,8 +198,9 @@ def handle_scene(scene, **config):
         else:
             commands.append(scene.get_movie_file_path())
         # commands.append("-g")
+        
         FNULL = open(os.devnull, 'w')
-        sp.call(commands, stdout=FNULL, stderr=sp.STDOUT)
+        sp.call(commands, stdout=FNULL, stderr=sp.STDOUT, shell=True)
         FNULL.close()
 
     if config["quiet"]:
@@ -257,6 +259,7 @@ def get_module(file_name):
 def main():
     config = get_configuration()
     module = get_module(config["file"])
+    
     scene_names_to_classes = dict(inspect.getmembers(module, is_scene))
 
     # config["output_directory"] = os.path.join(
@@ -277,16 +280,17 @@ def main():
             "end_at_animation_number",
         ]
     ])
-
+    
     scene_kwargs["name"] = config["output_name"]
+    
     if config["save_pngs"]:
         print("We are going to save a PNG sequence as well...")
         scene_kwargs["save_pngs"] = True
         scene_kwargs["pngs_mode"] = config["saved_image_mode"]
-
+    
     for SceneClass in get_scene_classes(scene_names_to_classes, config):
         try:
-            handle_scene(SceneClass(**scene_kwargs), **config)
+            handle_scene(SceneClass(**scene_kwargs), **config)           
             play_finish_sound()
         except:
             print("\n\n")
