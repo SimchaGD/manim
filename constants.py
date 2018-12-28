@@ -10,7 +10,7 @@ elif os.path.isfile("media_dir.txt"):
 else:
     MEDIA_DIR = os.path.join(
         os.path.expanduser('~'),
-        "Dropbox (3Blue1Brown)/3Blue1Brown Team Folder"
+        "documents/math animations/manim"
     )
 
 if not os.path.isdir(MEDIA_DIR):
@@ -108,7 +108,7 @@ SVG_IMAGE_DIR = os.path.join(MEDIA_DIR, "designs", "svg_images")
 # TODO, staged scenes should really go into a subdirectory of a given scenes directory
 STAGED_SCENES_DIR = os.path.join(VIDEO_DIR, "staged_scenes")
 ###
-THIS_DIR = os.path.dirname(os.path.realpath(__file__))
+THIS_DIR = "C:/Users/simcha/Documents/math animations/manim"
 FILE_DIR = os.path.join(THIS_DIR, "files")
 TEX_DIR = os.path.join(FILE_DIR, "Tex")
 TEX_IMAGE_DIR = TEX_DIR  # TODO, What is this doing?

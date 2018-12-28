@@ -61,6 +61,7 @@ class SVGMobject(VMobject):
             if os.path.exists(path):
                 self.file_path = path
                 return
+        
         raise IOError("No file matching %s in image directory" %
                       self.file_name)
 

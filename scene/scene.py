@@ -55,6 +55,7 @@ class Scene(Container):
 
     def __init__(self, **kwargs):
         # Perhaps allow passing in a non-empty *mobjects parameter?
+        
         Container.__init__(self, **kwargs)
         self.camera = self.camera_class(**self.camera_config)
         self.mobjects = []
@@ -72,17 +73,18 @@ class Scene(Container):
         if self.random_seed is not None:
             random.seed(self.random_seed)
             np.random.seed(self.random_seed)
-
+        
         self.setup()
         if self.write_to_movie:
             self.open_movie_pipe()
         if IS_LIVE_STREAMING:
             return None
+        
         try:
             self.construct(*self.construct_args)
         except EndSceneEarlyException:
             pass
-
+        
         # Always tack on one last frame, so that scenes
         # with no play calls still display something
         self.skip_animations = False
@@ -664,6 +666,7 @@ class Scene(Container):
             command += [temp_file_path]
         # self.writing_process = sp.Popen(command, stdin=sp.PIPE, shell=True)
         self.writing_process = sp.Popen(command, stdin=sp.PIPE)
+        
 
     def close_movie_pipe(self):
         self.writing_process.stdin.close()

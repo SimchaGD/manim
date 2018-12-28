@@ -18,7 +18,10 @@ def tex_hash(expression, template_tex_file_body):
 def tex_to_svg_file(expression, template_tex_file_body):
     tex_file = generate_tex_file(expression, template_tex_file_body)
     dvi_file = tex_to_dvi(tex_file)
-    return dvi_to_svg(dvi_file)
+    svgIMG = dvi_to_svg(dvi_file)
+    print("TEST utils.tex_file_writing 22")
+    print("Error occurs at line 119")
+    return svgIMG
 
 
 def generate_tex_file(expression, template_tex_file_body):
@@ -45,6 +48,24 @@ def get_null():
 
 
 def tex_to_dvi(tex_file):
+#    result = tex_file.replace(".tex", ".dvi")
+#    if not os.path.exists(result):
+#         commands = [
+#               "latex",
+#               "-interaction=batchmode",
+#               "-halt-on-error",
+#               "-output-directory=" + '"{}"'.format(TEX_DIR),
+#               '"{}"'.format(tex_file),
+#               ">",
+#               get_null()
+#         ]
+#         exit_code = os.system(" ".join(commands))
+#         if exit_code !=0:
+#              log_file = tex_file.replace(".tex", ".log")
+#              raise Exception(
+#                 "Latex error converting to dvi."
+#                 "See log output above or the log file: %s" % log_file)
+#    return result
     result = tex_file.replace(".tex", ".dvi" if not TEX_USE_CTEX else ".xdv")
     if not os.path.exists(result):
         commands = [
@@ -96,4 +117,5 @@ def dvi_to_svg(dvi_file, regen_if_exists=False):
             get_null()
         ]
         os.system(" ".join(commands))
+
     return result
