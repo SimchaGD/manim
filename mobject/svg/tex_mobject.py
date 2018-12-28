@@ -24,6 +24,7 @@ class TexSymbol(VMobjectFromSVGPathstring):
 
 
 class SingleStringTexMobject(SVGMobject):
+    
     CONFIG = {
         "template_tex_file_body": TEMPLATE_TEX_FILE_BODY,
         "stroke_width": 0,
@@ -41,10 +42,12 @@ class SingleStringTexMobject(SVGMobject):
         digest_config(self, kwargs)
         assert(isinstance(tex_string, str))
         self.tex_string = tex_string
+        
         file_name = tex_to_svg_file(
             self.get_modified_expression(tex_string),
             self.template_tex_file_body
         )
+        
         SVGMobject.__init__(self, file_name=file_name, **kwargs)
         if self.height is None:
             self.scale(TEX_MOB_SCALE_FACTOR)
@@ -131,6 +134,7 @@ class SingleStringTexMobject(SVGMobject):
 
 
 class TexMobject(SingleStringTexMobject):
+    
     CONFIG = {
         "arg_separator": " ",
         "substrings_to_isolate": [],
@@ -138,15 +142,18 @@ class TexMobject(SingleStringTexMobject):
     }
 
     def __init__(self, *tex_strings, **kwargs):
+        
         digest_config(self, kwargs)
         tex_strings = self.break_up_tex_strings(tex_strings)
         self.tex_strings = tex_strings
+        
         SingleStringTexMobject.__init__(
             self, self.arg_separator.join(tex_strings), **kwargs
         )
+        
         self.break_up_by_substrings()
         self.set_color_by_tex_to_color_map(self.tex_to_color_map)
-
+        
         if self.organize_left_to_right:
             self.organize_submobjects_left_to_right()
 
